@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sports Products Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Optional: Custom style for better list look */
+        .product-card-image {
+            height: 10rem;
+        }
+    </style>
+</head>
+<body class="bg-white text-black min-h-screen p-6">
+
+    <header class="max-w-6xl mx-auto mb-6">
+        <h1 class="text-2xl font-bold mb-2">Product Catalog</h1>
+        <p class="text-gray-600">Filter products by category or search by name.</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row gap-4 mb-6 p-4 bg-gray-50 rounded-lg shadow-sm">
+            <input id="searchInput" placeholder="Search products..." class="border p-2 rounded w-full sm:w-1/2 focus:ring-black focus:border-black" />
+            <select id="categorySelect" class="border p-2 rounded w-full sm:w-1/4 bg-white focus:ring-black focus:border-black">
+                <option value="All">All Categories</option> 
+            </select>
+        </div>
+
+        <div id="productDisplayContainer">
+            <h2 id="categoryHeading" class="text-xl font-bold mb-4 border-b pb-2 hidden"></h2> 
+            
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+            
+            <div id="productSections"></div>
+        </div>
+
+        <div id="emptyMessage" class="mt-10 p-8 rounded-xl bg-gray-100 shadow text-center text-gray-500 font-medium hidden">
+            No products match your filters.
+        </div>
+    </main>
+
+    <script>
+        // Data derived from the user's handwritten notes
+        const CUSTOM_PRODUCTS = [
+            // Casual & Sports Wear products
+            { id: 101, name: 'Unisex Kangaroo Hoodier', category: 'Casual & Sports Wear', price: 45.99 },
+            { id: 102, name: 'Winter Hoodies', category: 'Casual & Sports Wear', price: 55.00 },
+            { id: 103, name: 'Jackets / Men Jackets', category: 'Casual & Sports Wear', price: 79.50 },
+            { id: 104, name: 'Men Business T-shirts', category: 'Casual & Sports Wear', price: 25.00 },
+            { id: 105, name: 'Pullovers', category: 'Casual & Sports Wear', price: 35.00 },
+            { id: 106, name: 'Skiny Sweat pants', category: 'Casual & Sports Wear', price: 30.00 },
+            { id: 107, name: 'Halakda Sweat pants', category: 'Casual & Sports Wear', price: 30.00 },
+            { id: 108, name: 'Trousers', category: 'Casual & Sports Wear', price: 40.00 },
+            { id: 109, name: 'Pro Casual & Sports Trousers', category: 'Casual & Sports Wear', price: 45.00 },
+            { id: 110, name: 'Polo Shirts', category: 'Casual & Sports Wear', price: 22.00 },
+            { id: 111, name: 'Rugby Polo T-shirt (4)', category: 'Casual & Sports Wear', price: 32.00 },
+            
+            // Track Suits 
+            { id: 201, name: 'Track Suit (General)', category: 'Accessories / Track Suit', price: 65.00 },
+            { id: 202, name: 'Track Suit Men', category: 'Accessories / Track Suit', price: 68.00 },
+            { id: 203, name: 'Track Suit for Women', category: 'Accessories / Track Suit', price: 68.00 },
+            { id: 204, name: 'Polyester Tracksuit', category: 'Accessories / Track Suit', price: 75.00 },
+            { id: 205, name: 'Men Blank Jogging Track Suit', category: 'Accessories / Track Suit', price: 60.00 },
+            { id: 206, name: 'Men White Track Suit', category: 'Accessories / Track Suit', price: 70.00 },
+            { id: 207, name: 'Red Track Suit', category: 'Accessories / Track Suit', price: 70.00 },
+
+            // Team Wear / Uniforms
+            { id: 301, name: 'Hockey Uniform', category: 'Team Wear Sports', price: 55.00 },
+            { id: 302, name: 'Football Uniform', category: 'Team Wear Sports', price: 59.00 },
+            { id: 303, name: 'Soccer Uniform', category: 'Team Wear Sports', price: 59.00 },
+            { id: 304, name: 'Basket ball Uniform', category: 'Team Wear Sports', price: 62.00 },
+            { id: 305, name: 'American ICE Hockey Uniform', category: 'Team Wear Sports', price: 89.00 },
+            { id: 306, name: 'Tennis Uniform', category: 'Team Wear Sports', price: 48.00 },
+            { id: 307, name: 'Volley ball Uniform', category: 'Team Wear Sports', price: 58.00 },
+            { id: 308, name: 'Hand ball Uniform', category: 'Team Wear Sports', price: 57.00 },
+            { id: 309, name: 'Golf Sports Uniform', category: 'Team Wear Sports', price: 70.00 },
+            { id: 310, name: 'Rugby Uniform', category: 'Team Wear Sports', price: 65.00 },
+            { id: 311, name: 'Baseball Uniform', category: 'Team Wear Sports', price: 63.00 },
+            { id: 312, name: 'Cricket Uniform', category: 'Team Wear Sports', price: 59.00 },
+            { id: 313, name: 'American football with your own design', category: 'Team Wear Sports', price: 95.00 },
+            
+            // Fashion and Fitness
+            { id: 401, name: 'High-Waist Yoga Leggings', category: 'Fashion and Fitness', price: 49.99 },
+            { id: 402, name: 'Quick-Dry Running Tee', category: 'Fashion and Fitness', price: 29.99 },
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const categorySelect = document.getElementById('categorySelect');
+        const categoryHeading = document.getElementById('categoryHeading');
+        const productGrid = document.getElementById('productGrid');
+        const productSections = document.getElementById('productSections');
+        const emptyMessage = document.getElementById('emptyMessage');
+
+        // Group products by category (for the 'All' view)
+        const productsByCategory = CUSTOM_PRODUCTS.reduce((acc, product) => {
+          console.log(acc)
+            console.log(product.category)
+            if (!acc[product.category]) {
+                acc[product.category] = [];
+                
+            
+            }
+            acc[product.category].push(product);
+
+            return acc;
+
+
+        }, {});
+
+        const categoryNames = Object.keys(productsByCategory).sort();
+        console.log(categoryNames)
+        // Populate category dropdown
+        categoryNames.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c;
+            option.textContent = c;
+            categorySelect.appendChild(option);
+        });
+
+        // Function to create a product card HTML
+        function createProductCard(p) {
+            return `
+                <div class='bg-white rounded-xl border border-gray-100 shadow-md p-5 transition-transform duration-200 hover:shadow-lg hover:scale-[1.02] flex flex-col'>
+                    <div class='product-card-image bg-gray-100 rounded-lg flex items-center justify-center mb-4 text-gray-400 text-sm font-medium'>
+                         
+                    </div>
+                    <h3 class='font-bold text-black text-lg mb-1 truncate'>${p.name}</h3>
+                    <div class='text-xs text-gray-600 mb-4'>${p.category}</div>
+                    <div class='mt-auto flex justify-left'>
+                        <button class='sm px-3 py-1 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-700 transition duration-150'>Cart</button>
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function renderProducts() {
+            const query = searchInput.value.toLowerCase().trim();
+            const category = categorySelect.value;
+            productGrid.innerHTML = '';
+            productSections.innerHTML = '';
+            let totalFilteredProducts = 0;
+            
+            // --- Determine rendering mode ---
+            // Single Grid View: ONLY if a specific category is selected (category !== 'All').
+            const showSingleGridView = category !== 'All';
+
+            if (showSingleGridView) {
+                // --- Case 1: Specific Category Selected (Single Grid View) ---
+
+                // Setup single grid view
+                productGrid.classList.remove('hidden');
+                productSections.classList.add('hidden');
+                categoryHeading.classList.remove('hidden'); // Show the main heading
+
+                // Set the heading text
+                let headingText = `${category} Products`;
+                if (query.length > 0) {
+                     headingText += ` (Searching for "${query}")`;
+                }
+                categoryHeading.textContent = headingText;
+                
+                // Filter products
+                const filtered = CUSTOM_PRODUCTS.filter(p => {
+                    // Filter by category selection
+                    if (p.category !== category) return false;
+                    // Filter by search query
+                    if (query && !p.name.toLowerCase().includes(query) && !p.category.toLowerCase().includes(query)) return false;
+                    return true;
+                });
+
+                totalFilteredProducts = filtered.length;
+                
+                filtered.forEach(p => {
+                    productGrid.innerHTML += createProductCard(p);
+                });
+
+            } else {
+                // --- Case 2: 'All Categories' selected (Grouped View) ---
+                
+                // Setup grouped view
+                productGrid.classList.add('hidden');
+                categoryHeading.classList.add('hidden'); // Ensure main heading is hidden
+                productSections.classList.remove('hidden'); 
+
+                categoryNames.forEach(catName => {
+                    
+                    // Products filtered by query across all categories
+                    const filteredProducts = productsByCategory[catName].filter(p => {
+                        if (query && !p.name.toLowerCase().includes(query) && !p.category.toLowerCase().includes(query)) return false;
+                        return true;
+                    });
+
+                    if (filteredProducts.length > 0) {
+                        totalFilteredProducts += filteredProducts.length;
+
+                        const section = document.createElement('section');
+                        section.className = 'mb-12';
+
+                        // Add the internal category heading
+                        section.innerHTML += `
+                            <h2 class="text-2xl font-bold text-black mb-4 pb-2 border-b-2 border-black/20">${catName}</h2>
+                        `;
+
+                        const grid = document.createElement('div');
+                        grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
+
+                        filteredProducts.forEach(p => {
+                            grid.innerHTML += createProductCard(p);
+                        });
+
+                        section.appendChild(grid);
+                        productSections.appendChild(section);
+                    }
+                });
+            }
+
+            // Display empty message if no products matched the criteria
+            if (totalFilteredProducts === 0) {
+                emptyMessage.classList.remove('hidden');
+            } else {
+                emptyMessage.classList.add('hidden');
+            }
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', renderProducts);
+        categorySelect.addEventListener('change', renderProducts);
+
+        // Initial Render
+        renderProducts();
+    </script>
+
+</body>
+</html>
