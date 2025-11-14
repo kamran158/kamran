@@ -1,0 +1,95 @@
+:root {
+  --bg: #ffffff;
+  --accent: #0ea5a4;
+  --muted: #64748b;
+  --shadow: 0 1px 6px rgba(0,0,0,0.05);
+  font-family: "Inter", system-ui, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+/* Navbar container */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 40px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Left side — brand */
+nav h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+/* Right side — search bar */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 999px;
+  padding: 8px 14px;
+  gap: 8px;
+  width: 340px; /* slightly longer search bar */
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  width: 100%;
+}
+
+.search-box button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-box svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--muted);
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Make all <h3> items line up horizontally */
+.nav-links {
+  display: flex;
+  gap: 30px; /* space between items */
+  align-items: center;
+  justify-content: center; /* optional: centers the group */
+}
+
+/* Make links look clean */
+.nav-links h3 {
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #0ea5a4; /* hover color */
+}
+
