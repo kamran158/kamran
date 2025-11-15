@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sports Products Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+
     <style>
         /* Optional: Custom style for better list look */
         .product-card-image {
@@ -44,45 +46,45 @@
         // Data derived from the user's handwritten notes
         const CUSTOM_PRODUCTS = [
             // Casual & Sports Wear products
-            { id: 101, name: 'Unisex Kangaroo Hoodier', category: 'Casual & Sports Wear', price: 45.99 },
-            { id: 102, name: 'Winter Hoodies', category: 'Casual & Sports Wear', price: 55.00 },
-            { id: 103, name: 'Jackets / Men Jackets', category: 'Casual & Sports Wear', price: 79.50 },
-            { id: 104, name: 'Men Business T-shirts', category: 'Casual & Sports Wear', price: 25.00 },
-            { id: 105, name: 'Pullovers', category: 'Casual & Sports Wear', price: 35.00 },
-            { id: 106, name: 'Skiny Sweat pants', category: 'Casual & Sports Wear', price: 30.00 },
-            { id: 107, name: 'Halakda Sweat pants', category: 'Casual & Sports Wear', price: 30.00 },
-            { id: 108, name: 'Trousers', category: 'Casual & Sports Wear', price: 40.00 },
-            { id: 109, name: 'Pro Casual & Sports Trousers', category: 'Casual & Sports Wear', price: 45.00 },
-            { id: 110, name: 'Polo Shirts', category: 'Casual & Sports Wear', price: 22.00 },
-            { id: 111, name: 'Rugby Polo T-shirt (4)', category: 'Casual & Sports Wear', price: 32.00 },
+            { id: 101, name: 'Unisex Kangaroo Hoodier', category: 'Casual & Sports Wear', price: 45.99, img: './imgsrcs/our catagoriess/Casual & spots wear/unisex kangaroo hoodies/2.jpg' },
+            { id: 102, name: 'Winter Hoodies', category: 'Casual & Sports Wear', price: 55.00, img: './imgsrcs/our catagoriess/Casual & spots wear/hoodies/1.jpg' },
+            { id: 103, name: 'Jackets / Men Jackets', category: 'Casual & Sports Wear', price: 79.50, img: './imgsrcs/our catagoriess/Casual & spots wear/winter jacket/1.jpeg' },
+            { id: 104, name: 'Men Business T-shirts', category: 'Casual & Sports Wear', price: 25.00, img: './imgsrcs/our catagoriess/Casual & spots wear/men bussiness t shirts/1.jpg' },
+            { id: 105, name: 'Pullovers', category: 'Casual & Sports Wear', price: 35.00, img: './imgsrcs/our catagoriess/Casual & spots wear/pull over/1.jpg' },
+            { id: 106, name: 'Skiny Sweat pants', category: 'Casual & Sports Wear', price: 30.00, img: './imgsrcs/our catagoriess/Casual & spots wear/skiny sweat pants/1.jpg' },
+            { id: 107, name: 'Halakda Sweat pants', category: 'Casual & Sports Wear', price: 30.00, img: './imgsrcs/our catagoriess/Casual & spots wear/Alaksa sweat pants/1.jpg' },
+            { id: 108, name: 'Trousers', category: 'Casual & Sports Wear', price: 40.00, img: './imgsrcs/our catagoriess/Casual & spots wear/Trouser/1.jpg' },
+            { id: 109, name: 'Pro Casual & Sports Trousers', category: 'Casual & Sports Wear', price: 45.00, img: './imgsrcs/our catagoriess/Casual & spots wear/Casual spots trouser/1.jpg' },
+            { id: 110, name: 'Polo Shirts', category: 'Casual & Sports Wear', price: 22.00, img: './imgsrcs/our catagoriess/Casual & spots wear/plain polo t shirts/1.jpg' },
+            { id: 111, name: 'Rugby Polo T-shirt', category: 'Casual & Sports Wear', price: 32.00, img: './imgsrcs/our catagoriess/Casual & spots wear/stylish polo t shirts/1.jpg' },
             
             // Track Suits 
-            { id: 201, name: 'Track Suit (General)', category: 'Accessories / Track Suit', price: 65.00 },
-            { id: 202, name: 'Track Suit Men', category: 'Accessories / Track Suit', price: 68.00 },
-            { id: 203, name: 'Track Suit for Women', category: 'Accessories / Track Suit', price: 68.00 },
-            { id: 204, name: 'Polyester Tracksuit', category: 'Accessories / Track Suit', price: 75.00 },
-            { id: 205, name: 'Men Blank Jogging Track Suit', category: 'Accessories / Track Suit', price: 60.00 },
-            { id: 206, name: 'Men White Track Suit', category: 'Accessories / Track Suit', price: 70.00 },
-            { id: 207, name: 'Red Track Suit', category: 'Accessories / Track Suit', price: 70.00 },
+            { id: 201, name: 'Track Suit (General)', category: 'Accessories / Track Suit', price: 65.00, img: './imgsrcs/our catagoriess/Track suits/Track suits/1.jpg' },
+            { id: 202, name: 'Track Suit Men', category: 'Accessories / Track Suit', price: 68.00, img: './imgsrcs/our catagoriess/Track suits/staylish men trck suit/1.jpg' },
+            { id: 203, name: 'Track Suit for Women', category: 'Accessories / Track Suit', price: 68.00, img: './imgsrcs/our catagoriess/Track suits/ladies track suits/1.jpg' },
+            { id: 204, name: 'Polyester Tracksuit', category: 'Accessories / Track Suit', price: 75.00, img: './imgsrcs/our catagoriess/Track suits/Track suits/3.jpg' },
+            { id: 205, name: 'Men Blank Jogging Track Suit', category: 'Accessories / Track Suit', price: 60.00, img: './imgsrcs/our catagoriess/Track suits/Track suits/2.jpg' },
+            { id: 206, name: 'Men White Track Suit', category: 'Accessories / Track Suit', price: 70.00, img: './imgsrcs/our catagoriess/Track suits/Track suits/4.jpg' },
+            { id: 207, name: 'Red Track Suit', category: 'Accessories / Track Suit', price: 70.00, img: './imgsrcs/our catagoriess/Track suits/stylish ladies track suits/1.jpg' },
 
             // Team Wear / Uniforms
-            { id: 301, name: 'Hockey Uniform', category: 'Team Wear Sports', price: 55.00 },
-            { id: 302, name: 'Football Uniform', category: 'Team Wear Sports', price: 59.00 },
-            { id: 303, name: 'Soccer Uniform', category: 'Team Wear Sports', price: 59.00 },
-            { id: 304, name: 'Basket ball Uniform', category: 'Team Wear Sports', price: 62.00 },
-            { id: 305, name: 'American ICE Hockey Uniform', category: 'Team Wear Sports', price: 89.00 },
-            { id: 306, name: 'Tennis Uniform', category: 'Team Wear Sports', price: 48.00 },
-            { id: 307, name: 'Volley ball Uniform', category: 'Team Wear Sports', price: 58.00 },
-            { id: 308, name: 'Hand ball Uniform', category: 'Team Wear Sports', price: 57.00 },
-            { id: 309, name: 'Golf Sports Uniform', category: 'Team Wear Sports', price: 70.00 },
-            { id: 310, name: 'Rugby Uniform', category: 'Team Wear Sports', price: 65.00 },
-            { id: 311, name: 'Baseball Uniform', category: 'Team Wear Sports', price: 63.00 },
-            { id: 312, name: 'Cricket Uniform', category: 'Team Wear Sports', price: 59.00 },
-            { id: 313, name: 'American football with your own design', category: 'Team Wear Sports', price: 95.00 },
+            { id: 301, name: 'Hockey Uniform', category: 'Team Wear Sports', price: 55.00, img: './imgsrcs/our catagoriess/Team sports  wear/hockey uni/1.jpg' },
+            { id: 302, name: 'Football Uniform', category: 'Team Wear Sports', price: 59.00, img: './imgsrcs/our catagoriess/Team sports  wear/foot ball uni/1.jpg' },
+            { id: 303, name: 'Soccer Uniform', category: 'Team Wear Sports', price: 59.00, img: './imgsrcs/our catagoriess/Team sports  wear/soccer uni/1.jpg' },
+            { id: 304, name: 'Basket ball Uniform', category: 'Team Wear Sports', price: 62.00, img: './imgsrcs/our catagoriess/Team sports  wear/basket ball uni/1.jpg' },
+            { id: 305, name: 'American ICE Hockey Uniform', category: 'Team Wear Sports', price: 89.00, img: './imgsrcs/our catagoriess/Team sports  wear/ice hokey uniform/1.jpg' },
+            { id: 306, name: 'Tennis Uniform', category: 'Team Wear Sports', price: 48.00, img: './imgsrcs/our catagoriess/Team sports  wear/tennis uni/1.jpg' },
+            { id: 307, name: 'Volley ball Uniform', category: 'Team Wear Sports', price: 58.00, img: './imgsrcs/our catagoriess/Team sports  wear/Volley ball uni/1.jpg' },
+            { id: 308, name: 'Hand ball Uniform', category: 'Team Wear Sports', price: 57.00, img: './imgsrcs/our catagoriess/Team sports  wear/hand ball uni/1.jpg' },
+            { id: 309, name: 'Golf Sports Uniform', category: 'Team Wear Sports', price: 70.00, img: './imgsrcs/our catagoriess/Team sports  wear/golf uni/1.jpg' },
+            { id: 310, name: 'Rugby Uniform', category: 'Team Wear Sports', price: 65.00, img: './imgsrcs/our catagoriess/Team sports  wear/base ball uni/1.jpg' },
+            { id: 311, name: 'Baseball Uniform', category: 'Team Wear Sports', price: 63.00, img: './imgsrcs/our catagoriess/Team sports  wear/base ball uni/2.jpg' },
+            { id: 312, name: 'Cricket Uniform', category: 'Team Wear Sports', price: 59.00, img: './imgsrcs/our catagoriess/Team sports  wear/cricket/1.jpg' },
+            { id: 313, name: 'American football with your own design', category: 'Team Wear Sports', price: 95.00, img: './imgsrcs/our catagoriess/Team sports  wear/foot ball uni/2.jpg' },
             
             // Fashion and Fitness
-            { id: 401, name: 'High-Waist Yoga Leggings', category: 'Fashion and Fitness', price: 49.99 },
-            { id: 402, name: 'Quick-Dry Running Tee', category: 'Fashion and Fitness', price: 29.99 },
+            { id: 401, name: 'High-Waist Yoga Leggings', category: 'Fashion and Fitness', price: 49.99, img: './imgsrcs/Fashion and Fitness/High-Waist Yoga Leggings/1.jpg' },
+            { id: 402, name: 'Quick-Dry Running Tee', category: 'Fashion and Fitness', price: 29.99, img: './imgsrcs/Fashion and Fitness/Quick-Dry Running Tee/1.jpg' },
         ];
 
         const searchInput = document.getElementById('searchInput');
@@ -123,7 +125,7 @@
             return `
                 <div class='bg-white rounded-xl border border-gray-100 shadow-md p-5 transition-transform duration-200 hover:shadow-lg hover:scale-[1.02] flex flex-col'>
                     <div class='product-card-image bg-gray-100 rounded-lg flex items-center justify-center mb-4 text-gray-400 text-sm font-medium'>
-                         
+                        <img src='${p.img}' alt='${p.name}' class='max-h-full max-w-full object-contain rounded-lg' /> 
                     </div>
                     <h3 class='font-bold text-black text-lg mb-1 truncate'>${p.name}</h3>
                     <div class='text-xs text-gray-600 mb-4'>${p.category}</div>
@@ -200,7 +202,7 @@
 
                         // Add the internal category heading
                         section.innerHTML += `
-                            <h2 class="text-2xl font-bold text-black mb-4 pb-2 border-b-2 border-black/20">${catName}</h2>
+                            <h2 class="text-2xl font-bold text-black mb-4 pb-2 border-b-1 border-black/10">${catName}</h2>
                         `;
 
                         const grid = document.createElement('div');
