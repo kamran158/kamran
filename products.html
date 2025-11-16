@@ -10,7 +10,73 @@
     <style>
         /* Optional: Custom style for better list look */
         .product-card-image {
-            height: 10rem;
+            height: 18rem;
+        }
+        .i{display: inline-block;}
+        .freeze{
+            overflow: hidden;
+        }
+        p{display: inline-block;}
+        .c{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgb(192, 113, 113);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 100%;
+padding: 7px 30px;
+font-size: 3rem;
+        }
+        .modal {
+            overflow-y: scroll;
+            position: fixed;
+           inset: 0;
+           width: 100%;
+           height: auto;
+            background: #f9f9f9;            z-index: 1000;
+        }
+        .modal-content {
+            display: flex   ;
+            flex-direction: row;
+            min-height: 80vh ;
+            margin: 40px 140px ;
+            padding: 20px;
+            border-radius: 8px;
+        }  .modal-contente {
+      
+            margin: 40px 140px ;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .img{
+            border-radius: 12px;
+     height: 78vh;
+            margin: 10px;
+        }
+        .txt{
+            margin: 10px 20px 0 ;
+        }
+        .t1{
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .t2{
+ 
+            font-size: 20px;
+            font-weight: semi-bold;
+            text-i: ;
+        }
+        .btn{
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: rgb(112, 64, 64);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -80,13 +146,46 @@
             { id: 310, name: 'Rugby Uniform', category: 'Team Wear Sports', price: 65.00, img: './imgsrcs/our catagoriess/Team sports  wear/base ball uni/1.jpg' },
             { id: 311, name: 'Baseball Uniform', category: 'Team Wear Sports', price: 63.00, img: './imgsrcs/our catagoriess/Team sports  wear/base ball uni/2.jpg' },
             { id: 312, name: 'Cricket Uniform', category: 'Team Wear Sports', price: 59.00, img: './imgsrcs/our catagoriess/Team sports  wear/cricket/1.jpg' },
-            { id: 313, name: 'American football with your own design', category: 'Team Wear Sports', price: 95.00, img: './imgsrcs/our catagoriess/Team sports  wear/foot ball uni/2.jpg' },
+            { id: 313, name: 'American football ', category: 'Team Wear Sports', price: 95.00, img: './imgsrcs/our catagoriess/Team sports  wear/foot ball uni/2.jpg' },
             
             // Fashion and Fitness
             { id: 401, name: 'High-Waist Yoga Leggings', category: 'Fashion and Fitness', price: 49.99, img: './imgsrcs/Fashion and Fitness/High-Waist Yoga Leggings/1.jpg' },
             { id: 402, name: 'Quick-Dry Running Tee', category: 'Fashion and Fitness', price: 29.99, img: './imgsrcs/Fashion and Fitness/Quick-Dry Running Tee/1.jpg' },
         ];
 
+        function closeModal() {
+            document.body.classList.remove('freeze');
+            const modal = document.querySelector('.modal');
+            if (modal) document.body.removeChild(modal);
+        }
+
+        function modalOpen(name, img, category) {   
+            const modal = document.createElement('div');
+            console.log(img)
+            document.body.classList.add('freeze');
+            modal.className = 'modal';
+            modal.innerHTML = `
+            <div class='modal-content'> 
+                <button onclick="closeModal()" class='c'>X</button>
+                <img class='img' src='${img}' alt='${name}' class='max-h-full max-w-full object-contain rounded-lg' />
+                <div class='txt' >
+                    <h1 class='t2' >Home / ${category} / ${name}</h1>
+                    <h2 class='t1'>${name}</h2>
+                    <button  class='btn' >Add To Cart</button>
+                </div>
+
+
+            </div>
+<div class='modal-contente' >
+    <h2 class='t2 i' >Description</h2>
+            <p class='p'>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."</p>
+
+    </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        
         const searchInput = document.getElementById('searchInput');
         const categorySelect = document.getElementById('categorySelect');
         const categoryHeading = document.getElementById('categoryHeading');
@@ -123,14 +222,27 @@
         // Function to create a product card HTML
         function createProductCard(p) {
             return `
-                <div class='bg-white rounded-xl border border-gray-100 shadow-md p-5 transition-transform duration-200 hover:shadow-lg hover:scale-[1.02] flex flex-col'>
-                    <div class='product-card-image bg-gray-100 rounded-lg flex items-center justify-center mb-4 text-gray-400 text-sm font-medium'>
-                        <img src='${p.img}' alt='${p.name}' class='max-h-full max-w-full object-contain rounded-lg' /> 
-                    </div>
-                    <h3 class='font-bold text-black text-lg mb-1 truncate'>${p.name}</h3>
-                    <div class='text-xs text-gray-600 mb-4'>${p.category}</div>
-                    <div class='mt-auto flex justify-left'>
-                        <button class='sm px-3 py-1 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-700 transition duration-150'>Cart</button>
+              <div class='group bg-white rounded-xl border border-gray-100 shadow-md transition-transform duration-200 hover:shadow-lg hover:scale-[1.02] flex flex-col relative overflow-hidden'>
+                    
+                    <div class="p-5">
+                        <div class='product-card-image bg-gray-100 rounded-lg flex items-center justify-center mb-4 text-gray-400 text-sm font-medium'>
+                            <img src='${p.img}' alt='${p.name}' class='max-h-full max-w-full object-contain rounded-lg' /> 
+                        </div>
+                        <h3 class='font-bold text-black text-lg mb-1 truncate'>${p.name}</h3>
+                        <div class='text-xs text-gray-600 mb-12'>${p.category}</div>
+
+                   </div>
+                    
+                    <div class='absolute inset-x-0 bottom-0 bg-black text-white py-3 px-5 
+                                transform translate-y-full transition-transform duration-300 ease-in-out 
+                                group-hover:translate-y-0'>
+                        <div class='flex justify-between items-center'>
+                            <div class='font-bold text-lg'  >$${p.price.toFixed(2)}</div>
+                            <button class='bg-black text-white px-2 py-1 rounded-full  
+                                           hover:bg-gray-200 transition-colors duration-200' onclick="modalOpen('${p.name}', '${p.img}', '${p.category}')">
+                                Details
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
